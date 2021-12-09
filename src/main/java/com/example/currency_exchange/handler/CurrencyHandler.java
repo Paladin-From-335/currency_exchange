@@ -1,6 +1,7 @@
 package com.example.currency_exchange.handler;
 
 import com.example.currency_exchange.dto.AvailableCodesResponse;
+import com.example.currency_exchange.dto.CurrencyHistoryResponse;
 import com.example.currency_exchange.dto.CurrentPairRateResponse;
 import com.example.currency_exchange.dto.CurrentRateResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,9 +38,9 @@ public class CurrencyHandler {
     }
 
     public Object getAvailableCodes() {
-        String customUrl = url+"codes";
+        String customUrl = url + "codes";
         ObjectMapper mapper = new ObjectMapper();
-            AvailableCodesResponse availableCodes = new AvailableCodesResponse();
+        AvailableCodesResponse availableCodes = new AvailableCodesResponse();
         try {
             URL urlForRequest = new URL(customUrl);
             HttpURLConnection connection = (HttpURLConnection) urlForRequest.openConnection();
@@ -75,5 +76,26 @@ public class CurrencyHandler {
             e.printStackTrace();
         }
         return rateResponse;
+    }
+
+    public Object getCurrencyHistory(String currency, String year, String month, String day) {
+        String customUrl = url + "history/" + currency + "/" + year + "/" + month + "/" + day;
+        CurrencyHistoryResponse historyResponse = new CurrencyHistoryResponse();
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            URL urlForRequest = new URL(customUrl);
+            HttpURLConnection connection = (HttpURLConnection) urlForRequest.openConnection();
+            connection.setRequestMethod("GET");
+
+            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                historyResponse = mapper.readValue(urlForRequest, CurrencyHistoryResponse.class);
+            } else {
+                return HttpStatus.BAD_REQUEST;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return historyResponse;
     }
 }

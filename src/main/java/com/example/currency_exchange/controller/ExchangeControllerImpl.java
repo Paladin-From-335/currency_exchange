@@ -1,11 +1,8 @@
 package com.example.currency_exchange.controller;
 
-import com.example.currency_exchange.dto.CriteriaParamsDto;
 import com.example.currency_exchange.service.CurrencyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -31,9 +28,8 @@ public class ExchangeControllerImpl implements ExchangeController {
     }
 
     @Override
-    public List<String> getExchangeRatesHistory(CriteriaParamsDto criteriaParamsDto) {
-        //if param=null, next params (foreach)
-        return null;
+    public String getExchangeRatesHistory(String currency, String year, String month, String day) {
+        return service.getCurrencyHistory(currency, year, month, day);
     }
 
     @Override

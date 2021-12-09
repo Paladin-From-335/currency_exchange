@@ -1,9 +1,6 @@
 package com.example.currency_exchange.controller;
 
-import com.example.currency_exchange.dto.CriteriaParamsDto;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -19,8 +16,9 @@ public interface ExchangeController {
     @GetMapping("/available-codes")
     String getAvailableCurrencyCodes();
 
-    @PostMapping("/rates/history/criteria-params")
-    List<String> getExchangeRatesHistory(@RequestBody CriteriaParamsDto criteriaParamsDto);
+    @GetMapping("/history/{currency}&{year}&{month}&{day}")
+    String getExchangeRatesHistory(@PathVariable String currency, @PathVariable String year,
+                                   @PathVariable String month, @PathVariable String day);
 
     @GetMapping("/rates/best-rate/{firstCurrency}&{secondCurrency}")
     String getBestRates(@PathVariable String firstCurrency, @PathVariable String secondCurrency);

@@ -1,5 +1,6 @@
 package com.example.currency_exchange.service;
 
+import com.example.currency_exchange.dto.CurrencyHistoryResponse;
 import com.example.currency_exchange.dto.CurrentPairRateResponse;
 import com.example.currency_exchange.dto.CurrentRateResponse;
 import com.example.currency_exchange.handler.CurrencyHandler;
@@ -35,6 +36,16 @@ public class CurrencyService {
     public String getCurrencyPairRate(String currencyFrom, String currencyTo) {
         try {
             CurrentPairRateResponse response = (CurrentPairRateResponse) currencyHandler.getCurrencyPairRate(currencyFrom, currencyTo);
+            ObjectMapper objectMapper = new ObjectMapper();
+            return objectMapper.writeValueAsString(response);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
+    public String getCurrencyHistory(String currency, String year, String month, String day) {
+        try {
+            CurrencyHistoryResponse response = (CurrencyHistoryResponse) currencyHandler.getCurrencyHistory(currency, year, month, day);
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.writeValueAsString(response);
         } catch (Exception e) {
