@@ -1,0 +1,11 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: currency_exchange
+  profiles:
+    active: dev
+#logging:
+#  level:
+#    root: debug
+
